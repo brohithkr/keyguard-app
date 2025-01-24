@@ -39,7 +39,8 @@ jobs:
           mv -f androidApp/build/reports/licensee/androidNoneRelease/artifacts.json common/src/commonMain/composeResources/files/licenses.json
       - name: "Build"
         run: ./gradlew :androidApp:assembleNoneRelease
-      - name: "Find file matching wildcard"
+      - name: "Find file .apk path"
+        id: find-file
         run: | 
           file=$(find androidApp/build/outputs/apk -name '*.apk' | head -n 1)
           if [ -z "$file" ]; then
