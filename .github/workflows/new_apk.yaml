@@ -39,11 +39,17 @@ jobs:
           mv -f androidApp/build/reports/licensee/androidNoneRelease/artifacts.json common/src/commonMain/composeResources/files/licenses.json
       - name: "Build"
         run: ./gradlew :androidApp:assembleNoneRelease
+      - name: "Find file matching wildcard"
+        run: | 
+          file=$(find androidApp/build/outputs/apk -name '*.apk' | head -n 1)
+          if [ -z "$file" ]; then
+            echo "No .apk files found"
+            exit 1
+          fi
+          echo "file_path=$file" >> $GITHUB_OUTPUT
       - name: 'Upload .apk'
         uses: actions/upload-artifact@v4
         with:
-          name: app-android
-          path: |
-            androidApp/build/outputs/apk/**/*.apk
-            androidApp/build/outputs/mapping/**/mapping.txt
+          name: app-release.apk
+          path: ${{ steps.find-file.outputs.file_path }}
           retention-days: 7
