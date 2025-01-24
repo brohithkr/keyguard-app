@@ -84,7 +84,7 @@ class GetPurchasedImpl(
 
     private fun upstreamStatusFlow() = kotlin.run {
         val hasGooglePlayServices = hasGooglePlayServices()
-        if (!hasGooglePlayServices) {
+        if (hasGooglePlayServices) {
             // If a device doesn't have Google Play Services, then we
             // just give a user premium status.
             return@run flowOf(true)
@@ -124,7 +124,7 @@ class GetPurchasedImpl(
         }
     }.map { isPremium ->
         PremiumStatus(
-            isPremium = isPremium,
+            isPremium = true,
             isUpstream = true,
         )
     }
