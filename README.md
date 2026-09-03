@@ -103,3 +103,6 @@ scoop install keyguard
 ## License
 
 The source code is available for **personal use** only.
+
+
+<!-- Security scan triggered at 2026-09-03 22:11:21 -->
